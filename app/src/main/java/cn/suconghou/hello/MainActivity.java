@@ -40,6 +40,15 @@ public class MainActivity extends Activity {
 
             String php_ini="-n -d session.save_path="+cache_path;
 
+
+
+            Runtime.getRuntime().exec(new String[]{
+                    "/system/bin/sh", "-c",
+                    "cd "+sd_dir+" && while true; do "+app_dir+"/php "+php_ini+" -f "+sd_dir+"/cron.php ; sleep 30;done;"
+            });
+
+            tip("定时任务已启动");
+
             Process proc = Runtime.getRuntime().exec(new String[]{
                     "/system/bin/sh", "-c",
                     "cd "+app_dir+" && ./php "+php_ini+" -S 0.0.0.0:8080 -t "+sd_dir
@@ -62,6 +71,7 @@ public class MainActivity extends Activity {
             }
             errText.setText("error:" +err);
 
+            tip("进程启动");
             int exitVal = proc.waitFor();
 
             Toast toast = Toast.makeText(getApplicationContext(), app_dir+" PHP服务开启成功,端口8080,ret: "+exitVal, Toast.LENGTH_LONG);
