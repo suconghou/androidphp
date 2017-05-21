@@ -32,13 +32,17 @@ public class MainActivity extends Activity {
             TextView text = (TextView) findViewById(R.id.output);
             TextView errText = (TextView) findViewById(R.id.erroutput);
 
-            String app_dir = getApplicationContext().getFilesDir().getAbsolutePath();;
+            String app_dir = getApplicationContext().getFilesDir().getAbsolutePath();
+
             String sd_dir = Environment.getExternalStorageDirectory().getAbsolutePath();
 
+            String cache_path = getApplicationContext().getCacheDir().getAbsolutePath();
+
+            String php_ini="-n -d session.save_path="+cache_path;
 
             Process proc = Runtime.getRuntime().exec(new String[]{
                     "/system/bin/sh", "-c",
-                    "cd "+app_dir+" && ./php -S 0.0.0.0:80 -t "+sd_dir
+                    "cd "+app_dir+" && ./php "+php_ini+" -S 0.0.0.0:8080 -t "+sd_dir
             });
 
             String s = "";
@@ -60,7 +64,7 @@ public class MainActivity extends Activity {
 
             int exitVal = proc.waitFor();
 
-            Toast toast = Toast.makeText(getApplicationContext(), app_dir+" PHP服务开启成功,ret: "+exitVal, Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), app_dir+" PHP服务开启成功,端口8080,ret: "+exitVal, Toast.LENGTH_LONG);
             toast.show();
 
         }
