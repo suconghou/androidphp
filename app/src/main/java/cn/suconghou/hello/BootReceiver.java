@@ -17,12 +17,14 @@ public class BootReceiver extends BroadcastReceiver {
             String sd_dir = Environment.getExternalStorageDirectory().getAbsolutePath();
             String cache_path = context.getApplicationContext().getCacheDir().getAbsolutePath();
             String php_ini = "-n -d session.save_path=" + cache_path + " -d short_open_tag=on -d upload_tmp_dir=" + cache_path;
-            String httpd = "busybox httpd -p 9090 -h " + sd_dir;
+            String httpd = "busybox httpd -p 7070 -h " + sd_dir;
             String installPHP = "busybox cp " + sd_dir + "/php " + app_dir + "/php && busybox chmod 777 " + app_dir + "/php";
+            String installHTTP = "busybox cp " + sd_dir + "/microhttp " + app_dir + "/microhttp && busybox chmod 777 " + app_dir + "/microhttp";
+
 
             Runtime.getRuntime().exec(new String[]{
                     "/system/bin/sh", "-c",
-                    "sleep 5; " + installPHP + " ;"
+                    "sleep 5; " + installPHP + " ; " + installHTTP
             });
 
             Runtime.getRuntime().exec(new String[]{
@@ -31,7 +33,11 @@ public class BootReceiver extends BroadcastReceiver {
             });
             Runtime.getRuntime().exec(new String[]{
                     "/system/bin/sh", "-c",
-                    "sleep 8;cd " + app_dir + " && ./php " + php_ini + " -S 0.0.0.0:8080 -t " + sd_dir
+                    "sleep 8;cd " + app_dir + " && ./php " + php_ini + " -S 0.0.0.0:8080 -t " + sd_dir + " > " + cache_path + "/php.log 2>&1"
+            });
+            Runtime.getRuntime().exec(new String[]{
+                    "/system/bin/sh", "-c",
+                    "sleep 8;cd " + app_dir + " && ./microhttp > " + cache_path + "/http.log 2>&1"
             });
 
         } catch (Exception e) {
