@@ -24,7 +24,7 @@ public class BootReceiver extends BroadcastReceiver {
 
             Runtime.getRuntime().exec(new String[]{
                     "/system/bin/sh", "-c",
-                    "sleep 5; " + installPHP + " ; " + installHTTP
+                    "sleep 2; " + installPHP + " ; " + installHTTP
             });
 
             Runtime.getRuntime().exec(new String[]{
@@ -37,7 +37,7 @@ public class BootReceiver extends BroadcastReceiver {
             });
             Runtime.getRuntime().exec(new String[]{
                     "/system/bin/sh", "-c",
-                    "sleep 8;cd " + app_dir + " && ./microhttp > " + cache_path + "/http.log 2>&1"
+                    "sleep 12;cd " + app_dir + " && ./microhttp > " + cache_path + "/http.log 2>&1"
             });
 
         } catch (Exception e) {
