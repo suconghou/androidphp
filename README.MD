@@ -1,12 +1,13 @@
 
 ###
 
-开机自动启动,无GUI,无服务进程,开机自动更新`sdcard`目录下php二进制文件
+开机自动启动,无GUI,无服务进程,开机自动更新`sdcard`目录下php二进制文件,依赖`busybox`
+
 
 
 ### 交叉编译PHP7.1
 
-
+编译的扩展
 
 ```
 [PHP Modules]
@@ -19,18 +20,20 @@ json
 mbstring
 openssl
 pcre
+Phar
 Reflection
 session
 SPL
+sqlite3
 standard
 tokenizer
 
 [Zend Modules]
 ```
 
-php7.1 for android 二进制文件  http://share.suconghou.cn/files/arm/php_android.xz
+定制版php7.1 for android 二进制文件  http://share.suconghou.cn/files/arm/php_android_7.1.8.xz
 
-交叉编译参见 http://blog.suconghou.cn
+交叉编译参见 http://blog.suconghou.cn/post/php-on-android/
 
 
 ### busybox httpd
