@@ -3,6 +3,7 @@
 
 开机自动启动,无GUI,无服务进程,开机自动更新`sdcard`目录下php二进制文件,依赖`busybox`
 
+编译好的 http://share.suconghou.cn/files/arm/android_2.2_php.apk
 
 
 ### 交叉编译PHP7.1
@@ -27,6 +28,8 @@ SPL
 sqlite3
 standard
 tokenizer
+zip
+zlib
 
 [Zend Modules]
 ```
