@@ -6,15 +6,18 @@ import (
 	"path/filepath"
 )
 
-var doc = "/mnt/sdcard/external_sd"
+const (
+	doc     = "/mnt/sdcard/external_sd"
+	index   = "index.html"
+	address = ":9090"
+)
 
 func main() {
 	http.HandleFunc("/", routeMatch)
-	http.ListenAndServe(":9090", nil)
+	http.ListenAndServe(address, nil)
 }
 
 func routeMatch(w http.ResponseWriter, r *http.Request) {
-	index := "index.html"
 	files := []string{index}
 	if r.URL.Path != "/" {
 		files = []string{r.URL.Path, filepath.Join(r.URL.Path, index)}
