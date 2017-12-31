@@ -6,7 +6,10 @@ import (
 	"path/filepath"
 )
 
-var doc = "/mnt/sdcard/external_sd"
+const (
+	index = "index.html"
+	doc   = "/mnt/sdcard/external_sd"
+)
 
 func main() {
 	http.HandleFunc("/", routeMatch)
@@ -14,9 +17,9 @@ func main() {
 }
 
 func routeMatch(w http.ResponseWriter, r *http.Request) {
-	files := []string{"index.html"}
+	files := []string{index}
 	if r.URL.Path != "/" {
-		files = []string{r.URL.Path, filepath.Join(r.URL.Path, "index.html")}
+		files = []string{r.URL.Path, filepath.Join(r.URL.Path, index)}
 	}
 	if !tryFiles(files, w, r) {
 		http.NotFound(w, r)
